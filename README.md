@@ -8,9 +8,18 @@ Tener presente antes de:
 sudo apt update
 sudo apt upgrade
 ```
-
+Menu:
 - [Git](#instalación-git)
 - [Golang](#instalación-golang)
+- [Bee](#instalación-de-bee)
+- [Postgresql](#instalación-de-postgresql)
+- [pgAdmin4](##instalar-pgadmin4)
+- [pgModeler](##instalar-pgmodeler)
+- [Ngrok](#instalar-ngrok)
+- [SSH](#instalar-ssh)
+- [xRDP](#instalar-xrdp)
+- [Samba](#instalar-samba)
+
 
 ## Instalación git
 1. Istalar git
@@ -109,7 +118,7 @@ go env -w GO111MODULE=on
 go env -w GO111MODULE=""
 ```
 
-## Instalación de bee
+## Instalación de Bee
 1. Instalar bee
 ```bash
 go get github.com/beego/bee/v2
@@ -176,6 +185,7 @@ sudo service postgresql restart
 sudo apt install pgadmin4
 ```
 Una vez instalado debe aparecer el ícono de la aplicación.
+
 2. Configurar entorno web
 ```bash
 sudo /usr/pgadmin4/bin/setup-web.sh
@@ -230,7 +240,7 @@ ngrok http 80
 # HTTP Evitar error: Invalid Host Header, ejemplo puerto 8080 
 ngrok http --host-header=rewrite 8080
 ```
-Nota: con cuenta gratuita solo puede ejecutar una sesión al tiempo
+Nota: con cuenta gratuita solo puede ejecutar una sesión al tiempo.
 
 ## Instalar SSH
 1. Instar SSH
@@ -341,7 +351,8 @@ sudo nano /etc/samba/smb.conf
    workgroup = WORKGROUP
 ....
 ```
-Por defecto para compartir con Windows el grupo de trabajo es WORKGROUP
+Por defecto para compartir con Windows el grupo de trabajo es WORKGROUP.
+
 13. Al final del archivo smb.conf, añadir:
 ```bash
 .....
