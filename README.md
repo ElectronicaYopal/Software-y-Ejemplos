@@ -13,15 +13,15 @@ Menu:
 - [Golang](#instalación-golang)
 - [Bee](#instalación-de-bee)
 - [Postgresql](#instalación-de-postgresql)
-- [pgAdmin4](##instalar-pgadmin4)
-- [pgModeler](##instalar-pgmodeler)
+- [pgAdmin4](#instalar-pgadmin4)
+- [pgModeler](#instalar-pgmodeler)
 - [Ngrok](#instalar-ngrok)
 - [SSH](#instalar-ssh)
 - [xRDP](#instalar-xrdp)
 - [Samba](#instalar-samba)
 
 
-## Instalación git
+## Instalación git [Subir](#software-y-configuración)
 1. Istalar git
 ```bash
 sudo apt install git
