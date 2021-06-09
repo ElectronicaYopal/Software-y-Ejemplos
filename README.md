@@ -1,4 +1,4 @@
-# Software_y_Ejemplos
+# Software y Ejemplos
 Instalación de software y ejemplos de prueba
 
 ## Instalación Golang
