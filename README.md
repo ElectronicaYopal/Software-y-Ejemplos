@@ -148,4 +148,166 @@ sudo /usr/pgadmin4/bin/setup-web.sh
 ```
 Le pedirá crear un usuario o correo x y contraseña, para acceder: http://localhost/pgadmin4
 
-Eso es todo por el momento.
+## Instalar NGROK
+1. Registrarse en https://ngrok.com/
+2. Instalar NGROK desde snap, Nota: snap se encuentra instalado por defecto desde Ubuntu 16.04, sino seguir los pasos en página de NGROK[https://ngrok.com/download]
+```bash
+sudo snap install ngrok
+```
+3. Al registrase se genera un token, este se ingresa a la aplicación Ngrok
+```bash
+ngrok authtoken <your_auth_token>
+```
+4. Con los siguientes comandos puede exponer a la web distintos servicios
+```bash
+# SSH
+ngrok tcp 22
+
+# xRDP
+ngrok tcp 3389
+
+# HTTP
+ngrok http 80
+```
+Nota: con cuenta gratuita solo puede ejecutar una sesión al tiempo
+
+## Instalar SSH
+1. Instar SSH
+```bash
+sudo apt install openssh-server
+```
+2. Verificar que el servicio se está ejecutando
+```bash
+sudo systemctl status ssh
+```
+Para salir presione Q.
+
+3. Si el servicio no se está ejecutando, hacer:
+```bash
+sudo systemctl enable ssh
+sudo systemctl start ssh
+```
+4. Permitir ssh en firewall y verificar
+```bash
+sudo ufw allow ssh
+sudo ufw enable
+
+sudo ufw status
+# debe aparecer el puerto tcp/22 para ssh
+```
+Ahora es accesible remotamente de manera local y en linea ejecutando ngrok.
+
+## Instalar xRDP
+1. Instalar xrdp
+```bash
+sudo apt install xrdp
+```
+2. Verificar que el servicio se está ejecutando
+```bash
+sudo systemctl status xrdp
+```
+3. Si no se está ejecutando
+```bash
+sudo systemctl restart xrdp
+```
+4. Añadir certificado SSL a usuario
+```bash
+sudo adduser xrdp ssl-cert
+```
+5. Permitir xrdp en firewall
+```bash
+sudo ufw allow 3389
+sudo ufw reload
+
+sudo ufw status
+# debe aparecer el puerto tcp/3389
+```
+
+## Instalar Samba
+1. Instalar samba
+```bash
+sudo apt install samba
+```
+2. Verificar que el servicio está activo
+```bash
+sudo systemctl status smbd
+sudo systemctl status nmbd
+```
+3. Si no está activo, entonces:
+```bash
+sudo systemctl start smbd
+sudo systemctl start nmbd
+```
+4. Permitir samba en firewall
+```bash
+sudo ufw allow samba
+```
+5. Añadir usuario de acceso al directorio a compartir
+```bash
+sudo adduser nombre_usuario
+```
+6. Establecer contraseña
+```bash
+sudo smbpasswd -a nombre_usuario
+```
+7. Crear grupo para el usuario
+```bash
+sudo groupadd nombre_grupo
+```
+8. Añadir el usuario al grupo
+```bash
+sudo gpasswd -a nombre_usuario nombre_grupo
+```
+9. Crear si no existe el directorio a compartir
+```bash
+mkdir /ruta/del/directorio
+```
+10. Otorgar permisos de lectura y escritura al directorio a compartir
+```bash
+sudo setfacl -R -m "g:nombre_grupo:rwx" /ruta/del/directorio
+```
+11. Editar el archivo de configuración de samba
+```bash
+sudo nano /etc/samba/smb.conf
+```
+12. Verificar/cambiar en nombre del grupo de trabajo en:
+```bash
+[global]
+
+## Browsing/Identification ###
+
+# Change this to the workgroup/NT-domain name your Samba server will part of
+   workgroup = WORKGROUP
+....
+```
+Por defecto para compartir con Windows el grupo de trabajo es WORKGROUP
+13. Al final del archivo smb.conf, añadir:
+```bash
+.....
+[Sharing]
+   path = /ruta/del/directorio
+   valid users = nombre_usuario
+   guest ok = yes
+   browsable = yes
+   writeable = yes
+   read only = no
+   force user = nombre_usuario
+   force create mode = 0777
+   force directory mode = 0777
+```
+Crtl+O para guardar y Ctrl+X para cerrar.
+
+14. Reiniciar el servicio de samba
+```bash
+sudo systemctl restart smbd nmbd
+```
+
+## Password Root - Usar bajo su responsabilidad !!!
+```bash
+# Set Pass
+sudo passwd root
+
+# Delet Pass
+sudo passwd -dl root
+```
+Eso es todo por ahora... NeFa!
