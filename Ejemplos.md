@@ -64,4 +64,11 @@ Y el directorio de la api termina asi:
 
 La api ya se puede ejecutar sin recurrir a bee run, simplemente digitando en nombre de esta.
 
+Para hacerla accesible localmente se habilita el puerto en el firewall
+```bash
+sudo ufw allow 8080
+```
+
+Para exponerla en línea se usa ngrok, [más info aquí.](Software-y-Ejemplos#instalar-ngrok)
+
 NeFa
