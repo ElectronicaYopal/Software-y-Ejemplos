@@ -8,7 +8,7 @@ Tener presente antes de:
 sudo apt update
 sudo apt upgrade
 ```
-Menu:
+Software:
 - [Git](#instalación-git)
 - [Golang](#instalación-golang)
 - [Bee](#instalación-de-bee)
@@ -21,7 +21,7 @@ Menu:
 - [Samba](#instalar-samba)
 
 
-## Instalación git [Subir](#software-y-configuración)
+## Instalación git
 1. Istalar git
 ```bash
 sudo apt install git
