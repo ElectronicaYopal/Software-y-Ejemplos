@@ -69,6 +69,6 @@ Para hacerla accesible localmente se habilita el puerto en el firewall
 sudo ufw allow 8080
 ```
 
-Para exponerla en línea se usa ngrok, [más info aquí.](Software-y-Ejemplos#instalar-ngrok)
+Para exponerla en línea se usa ngrok, [más info aquí.](README.md#instalar-ngrok)
 
 NeFa
