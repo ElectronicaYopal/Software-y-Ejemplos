@@ -136,6 +136,37 @@ postgres=# ALTER USER postgres PASSWORD 'contraseña';
 ```
 3. Para salir del prompt de postgres digite: \q o exit
 
+### Configuración para ser accesible desde pgModeler
+1. Configurar autenticación de postgresql en el archivo pg_hba.conf
+```bash
+sudo nano /etc/postgresql/Numero_Version_Postgres/main/pg_hba.conf
+```
+2. Cambiar METHOD a "trust" lo siguiente señalado con la flecha:
+```bash
+....
+# Database administrative login by Unix domain socket
+local   all             postgres                                trust <--- antes: peer
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# "local" is for Unix domain socket connections only
+local   all             all                                     trust <--- antes: peer
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            trust <--- antes: md5
+# IPv6 local connections:
+host    all             all             ::1/128                 trust <--- antes: md5
+# Allow replication connections from localhost, by a user with the
+# replication privilege.
+local   replication     all                                     peer
+host    replication     all             127.0.0.1/32            md5
+host    replication     all             ::1/128                 md5
+....
+```
+3. Reiniciar postgres
+```bash
+sudo service postgresql restart
+```
+
 ## Instalar pgAdmin4
 1. Instalar pgAmin4 con entorno desktop y web
 ```bash
@@ -147,6 +178,30 @@ Una vez instalado debe aparecer el ícono de la aplicación.
 sudo /usr/pgadmin4/bin/setup-web.sh
 ```
 Le pedirá crear un usuario o correo x y contraseña, para acceder: http://localhost/pgadmin4
+
+## Instalar pgModeler
+1. Instalar pgModeler
+```bash
+sudo apt-get install pgmodeler
+```
+2. Crear acceso directo
+```bash
+sudo nano /usr/share/applications/pgmodeler.desktop
+```
+Dentro del archivo agregar:
+```bash
+[Desktop Entry]
+Name=pgModeler
+Type=Application
+Exec=pgmodeler
+Terminal=false
+Icon=/usr/local/share/pgmodeler/conf/pgmodeler_logo.png
+Comment=Integrated Development Environment
+NoDisplay=false
+Categories=Development;IDE;
+Name[en]=pgModeler
+```
+Ctrl+O para guardar y Ctrl+X para salir
 
 ## Instalar NGROK
 1. Registrarse en https://ngrok.com/
@@ -166,8 +221,11 @@ ngrok tcp 22
 # xRDP
 ngrok tcp 3389
 
-# HTTP
+# HTTP ejemplo para puerto 80
 ngrok http 80
+
+# HTTP Evitar error: Invalid Host Header, ejemplo puerto 8080 
+ngrok http --host-header=rewrite 8080
 ```
 Nota: con cuenta gratuita solo puede ejecutar una sesión al tiempo
 
