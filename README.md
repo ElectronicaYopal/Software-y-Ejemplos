@@ -20,6 +20,11 @@ Software:
 - [xRDP](#instalar-xrdp)
 - [Samba](#instalar-samba)
 
+- [Utilidades](#utilidades)
+
+Ejemplos:
+- [Basic API CRUD](Ejemplos.md)
+
 
 ## Instalación git
 1. Istalar git
@@ -374,7 +379,10 @@ Crtl+O para guardar y Ctrl+X para cerrar.
 sudo systemctl restart smbd nmbd
 ```
 
-## Password Root - Usar bajo su responsabilidad !!!
+
+## Utilidades
+
+### Password Root - Usar bajo su responsabilidad !!!
 ```bash
 # Set Pass
 sudo passwd root
@@ -382,4 +390,14 @@ sudo passwd root
 # Delet Pass
 sudo passwd -dl root
 ```
+
+### Ver puertos usados y matar sus procesos
+```bash
+# Ver puertos ocupados
+sudo lsof -i -P -n | grep LISTEN
+
+# Matar el proceso que ocupa ese puerto, ejem puerto 8080
+fuser -k 8080/tcp
+```
+
 Eso es todo por ahora... NeFa!
