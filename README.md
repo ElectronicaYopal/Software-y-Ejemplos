@@ -9,6 +9,9 @@ sudo apt update
 sudo apt upgrade
 ```
 
+- [Git](#instalación-git)
+- [Golang](#instalación-golang)
+
 ## Instalación git
 1. Istalar git
 ```bash
